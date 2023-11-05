@@ -91,6 +91,7 @@ export default function LoginPage() {
 
   const handleLoginWithNostr = async (e: any) => {
     e.preventDefault();
+    setUserPrivateKey("");
     if (typeof nostr !== "undefined") {
       const publicKey: string = await nostr.getPublicKey();
       setUserPublicKey(publicKey);
@@ -295,7 +296,7 @@ export default function LoginPage() {
             )}
 
             {signupStep === SignupStep.SavePrivateKey && (
-              <div className="m-auto flex w-full max-w-2xl flex-col items-start justify-center gap-10">
+              <div className="m-auto flex w-full max-w-sm flex-col items-start justify-center gap-10">
                 <div className="w-full">
                   <h1 className="text-5xl dark:text-white">Your Keys</h1>
                 </div>
@@ -308,8 +309,8 @@ export default function LoginPage() {
                       Public Key
                     </label>
                     <div className="relative">
-                      <input
-                        type="text"
+                      <textarea
+                        // type="text"
                         name="publickey"
                         id="publickey"
                         spellCheck="false"
@@ -321,7 +322,7 @@ export default function LoginPage() {
                         className="w-full cursor-pointer rounded border border-gray-300 p-2 caret-transparent dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100"
                       />
 
-                      <div className="right-0 top-0 flex h-full items-center justify-center lg:absolute ">
+                      <div className="right-0 top-0 flex h-full items-center justify-center">
                         <button
                           onClick={async () => {
                             await copyTextToClipboard(nip19.npubEncode(pubKey));
@@ -336,8 +337,8 @@ export default function LoginPage() {
                       Private Key
                     </label>
                     <div className="relative">
-                      <input
-                        type="text"
+                      <textarea
+                        // type="text"
                         name="privatekey"
                         id="privatekey"
                         spellCheck="false"
@@ -348,7 +349,7 @@ export default function LoginPage() {
                         onChange={(e) => e.preventDefault()}
                         className="w-full cursor-pointer rounded border border-gray-300 p-2 caret-transparent dark:border-gray-600 dark:bg-gray-600 dark:text-gray-100"
                       />
-                      <div className="right-0 top-0 flex h-full items-center justify-center lg:absolute">
+                      <div className="right-0 top-0 flex h-full items-center justify-center ">
                         <button
                           onClick={async () => {
                             await copyTextToClipboard(nip19.nsecEncode(privKey));

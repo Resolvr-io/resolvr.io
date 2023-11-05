@@ -16,7 +16,7 @@ export function retrieveProfiles(pubkey: string[]) {
     setProfileEvent(relayUrl, event.pubkey, event);
   };
 
-  const onEOSE = () => { };
+  const onEOSE = () => {};
 
   const userFilter: Filter = {
     kinds: [0],
@@ -42,7 +42,7 @@ export function getApplicants(dValues: Set<string>) {
     }
   };
 
-  const onApplicantEOSE = () => { };
+  const onApplicantEOSE = () => {};
 
   subscribe([relayUrl], applicantFilter, onApplicantEvent, onApplicantEOSE);
 }
@@ -107,7 +107,7 @@ export const getZapRecieptFromRelay = async (cachedBountyEvent: Event) => {
       }
     };
 
-    const onEOSE = () => { };
+    const onEOSE = () => {};
 
     subscribe([relayUrl], postedBountyFilter, onEvent, onEOSE);
   }
@@ -133,7 +133,60 @@ export const filterBounties = (search: string, list: Event[]) => {
   return result.map((r) => r.item);
 };
 
-export const getTaggedBounties = async (tag: string,loading: any, setLoading: any) => {
+export const filterReportedBounties = (bountyEvents: Event[], reportedBountyEvents: Event[]) => {
+  const REPORT_THRESHOLD = 0;
+  if (REPORT_THRESHOLD <= 0) {
+    return bountyEvents;
+  }
+
+  type Count = {
+    [key: string]: {
+      count: number;
+      reportedBy: Set<string>;
+    };
+  };
+
+  const reportedByCount = reportedBountyEvents.reduce((obj, event) => {
+    const reportedId = event.tags?.find((tag) => tag[0] === "e")![1];
+
+    if (reportedId) {
+      const reporterPubkey = event.pubkey;
+      if (obj.reportedId) {
+        if (!obj.reportedId.reportedBy.has(reporterPubkey)) {
+          return {
+            ...obj,
+            [reportedId]: {
+              count: obj.reportedId.count + 1,
+              reportedBy: new Set(obj.reportedId.reportedBy).add(reporterPubkey),
+            },
+          };
+        } else {
+          return obj;
+        }
+      } else {
+        return {
+          ...obj,
+          [reportedId]: {
+            count: 1,
+            reportedBy: new Set<string>().add(reporterPubkey),
+          },
+        };
+      }
+    }
+    return obj;
+  }, {} as Count);
+
+  const difference = bountyEvents.filter((bounty) => {
+    if (reportedByCount[bounty.id]) {
+      return reportedByCount[bounty.id].count < REPORT_THRESHOLD;
+    }
+    return true;
+  });
+
+  return difference;
+};
+
+export const getTaggedBounties = async (tag: string, loading: any, setLoading: any) => {
   if (taggedBountyEvents[relayUrl] && taggedBountyEvents[relayUrl][tag] && taggedBountyEvents[relayUrl][tag].length === 0) {
     setLoading({ ...loading, all: true });
   } else {

@@ -12,6 +12,10 @@ interface BountyEventState {
   deleteBountyEvent: (key: string, id: string) => void;
   updateBountyEvent: (key: string, id: string, bountyEvent: Event) => void;
 
+  reportedBountyEvents: Record<string, Array<Event>>;
+  setReportedBountyEvents: (key: string, reportedBountyEvents: Array<Event>) => void;
+  getReportedBountyEvents: (key: string) => Array<Event>;
+
   userEvents: Record<string, Array<Event>>;
   setUserEvents: (key: string, userEvents: Array<Event>) => void;
   getUserEvents: (key: string) => Array<Event>;
@@ -77,6 +81,11 @@ export const useBountyEventStore = create<BountyEventState>()(
             };
           });
         },
+
+        reportedBountyEvents: {},
+        setReportedBountyEvents: (key, reportedBountyEvents) =>
+          set((prev) => ({ reportedBountyEvents: { ...prev.reportedBountyEvents, [key]: reportedBountyEvents } })),
+        getReportedBountyEvents: (key: string) => get().reportedBountyEvents[key] ?? [],
 
         userEvents: {},
         setUserEvents: (key, userEvents) => set((prev) => ({ userEvents: { ...prev.userEvents, [key]: userEvents } })),

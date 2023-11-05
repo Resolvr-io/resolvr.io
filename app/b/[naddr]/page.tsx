@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 import Applicant from "@/app/components/Applicant";
 import Applybutton from "@/app/components/Applybutton";
+import ReportButton from "@/app/components/ReportButton";
 import { getApplicants, getZapRecieptFromRelay, retrieveProfiles } from "@/app/lib/nostr";
 import { getBountyTags, getTagValues, parseProfileContent, shortenHash } from "@/app/lib/utils";
 import Avatar from "@/app/messages/components/Avatar";
@@ -74,7 +75,7 @@ export default function BountyPage() {
           setCachedBountyEvent(event);
         };
 
-        const onEOSE = () => { };
+        const onEOSE = () => {};
 
         const filter = {
           kinds: [naddrPointer.kind],
@@ -209,7 +210,7 @@ export default function BountyPage() {
                   )}
                 </div>
 
-                <div className="flex gap-x-2">
+                <div className="flex items-center gap-x-2">
                   {bountyEvent?.pubkey && naddrPointer && (
                     <>
                       {userPublicKey && bountyEvent.pubkey !== userPublicKey && (
@@ -230,6 +231,7 @@ export default function BountyPage() {
                           }
                         </>
                       )}
+
                       {bountyEvent.pubkey === getUserPublicKey() && (
                         <>
                           {/* <div className="flex cursor-pointer items-center justify-center rounded-lg bg-gray-400 px-2 text-white hover:bg-gray-500 dark:bg-gray-700/80 dark:hover:bg-gray-700"> */}
@@ -248,43 +250,50 @@ export default function BountyPage() {
                 </div>
               </div>
             </div>
-            <div className="flex divide-x divide-gray-600 px-2 pt-4 dark:text-gray-400">
-              <div
-                onClick={() => setTab("details")}
-                className={classNames(
-                  tab === "details"
-                    ? "text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-400"
-                    : "hover:text-gray-700 dark:hover:text-gray-200",
-                  "flex cursor-pointer select-none items-center gap-x-2 pr-2 hover:text-indigo-600 dark:border-gray-700 dark:hover:text-gray-100"
-                )}
-              >
-                <BookOpenIcon className="h-5 w-5" />
-                <h3 className="">Details</h3>
+            <div className="flex pt-4 dark:text-gray-400">
+              <div className="flex w-full flex-row divide-x divide-gray-600 px-2 ">
+                <div
+                  onClick={() => setTab("details")}
+                  className={classNames(
+                    tab === "details"
+                      ? "border-indigo-300 text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-400"
+                      : "border-transparent hover:text-gray-700 dark:hover:text-gray-200",
+                    "flex cursor-pointer select-none items-center gap-x-2 border-r border-gray-200 pr-2 hover:text-indigo-600 dark:border-gray-700 dark:hover:text-gray-100"
+                  )}
+                >
+                  <BookOpenIcon className="h-5 w-5" />
+                  <h3 className="">Details</h3>
+                </div>
+                <div
+                  onClick={() => setTab("applications")}
+                  className={classNames(
+                    tab === "applications"
+                      ? "border-indigo-300 text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-400"
+                      : "border-transparent hover:text-gray-700 dark:hover:text-gray-200",
+                    "flex cursor-pointer select-none items-center gap-x-2 border-r border-gray-200 px-2 hover:text-indigo-600 dark:border-gray-700 dark:hover:text-gray-100"
+                  )}
+                >
+                  <UsersIcon className="h-5 w-5" />
+                  <h3>Applications ({Object.values(getBountyApplicants(relayUrl, getTagValues("d", bountyEvent.tags))).length})</h3>
+                </div>
+                <div
+                  onClick={() => setTab("discussion")}
+                  className={classNames(
+                    tab === "discussion"
+                      ? "border-indigo-300 text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-400"
+                      : "border-transparent hover:text-gray-700 dark:hover:text-gray-200",
+                    "flex cursor-pointer select-none items-center gap-x-2 border-r border-gray-200 pl-2 hover:text-indigo-600 dark:border-gray-700 dark:hover:text-gray-100"
+                  )}
+                >
+                  <ChatBubbleLeftRightIcon className="h-5 w-5" />
+                  <h3 className="">Discussion</h3>
+                </div>
               </div>
-              <div
-                onClick={() => setTab("applications")}
-                className={classNames(
-                  tab === "applications"
-                    ? "text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-400"
-                    : "hover:text-gray-700 dark:hover:text-gray-200",
-                  "flex cursor-pointer select-none items-center gap-x-2 px-2 hover:text-indigo-600 dark:border-gray-700 dark:hover:text-gray-100"
-                )}
-              >
-                <UsersIcon className="h-5 w-5" />
-                <h3>Applications ({Object.values(getBountyApplicants(relayUrl, getTagValues("d", bountyEvent.tags))).length})</h3>
-              </div>
-              <div
-                onClick={() => setTab("discussion")}
-                className={classNames(
-                  tab === "discussion"
-                    ? "text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-400"
-                    : "hover:text-gray-700 dark:hover:text-gray-200",
-                  "flex cursor-pointer select-none items-center gap-x-2 pl-2 hover:text-indigo-600 dark:border-gray-700 dark:hover:text-gray-100"
-                )}
-              >
-                <ChatBubbleLeftRightIcon className="h-5 w-5" />
-                <h3 className="">Discussion</h3>
-              </div>
+              {userPublicKey !== bountyEvent.pubkey && (
+                <div className="ml-auto">
+                  <ReportButton event={bountyEvent}></ReportButton>
+                </div>
+              )}
             </div>
           </div>
 

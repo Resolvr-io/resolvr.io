@@ -6,7 +6,8 @@ import BountyPlaceholder from "@/app/components/Skeleton/Bounty";
 import type { Event, Filter } from "nostr-tools";
 
 import { BountyTab } from "../../lib/constants";
-import { filterBounties, getApplicants, getTaggedBounties, retrieveProfiles } from "../../lib/nostr";
+import { RESOLVR_NAMESPACE } from "../../lib/constants";
+import { filterBounties, filterReportedBounties, getApplicants, getTaggedBounties, retrieveProfiles } from "../../lib/nostr";
 import { getTagValues } from "../../lib/utils";
 import { useBountyEventStore } from "../../stores/eventStore";
 import { useRelayStore } from "../../stores/relayStore";
@@ -16,7 +17,20 @@ import NoBounties from "./NoBounties";
 
 export default function Bounties() {
   const { subscribe, relayUrl } = useRelayStore();
-  const { setBountyEvents, getBountyEvents, bountyEvents, bountyType, search, tag, taggedBountyEvents, getTag, getTaggedBountyEvents } = useBountyEventStore();
+  const {
+    setBountyEvents,
+    getBountyEvents,
+    bountyEvents,
+    bountyType,
+    search,
+    tag,
+    taggedBountyEvents,
+    getTag,
+    getTaggedBountyEvents,
+    reportedBountyEvents,
+    getReportedBountyEvents,
+    setReportedBountyEvents,
+  } = useBountyEventStore();
   const [loading, setLoading] = useState({ all: false });
 
   const getBounties = async () => {
@@ -66,11 +80,30 @@ export default function Bounties() {
     subscribe([relayUrl], bountyFilter, onEvent, onEOSE);
   };
 
+  const getReportedBounties = async () => {
+    const reportedBountyFilter: Filter = {
+      kinds: [1984],
+      "#L": [RESOLVR_NAMESPACE],
+    };
+    const events: Event[] = [];
+
+    const onEvent = (event: Event) => {
+      events.push(event);
+    };
+
+    const onEOSE = () => {
+      setReportedBountyEvents(relayUrl, events);
+    };
+
+    subscribe([relayUrl], reportedBountyFilter, onEvent, onEOSE);
+  };
+
   const localGetTaggedBounties = async () => {
     getTaggedBounties(tag, loading, setLoading);
   };
 
   useEffect(() => {
+    getReportedBounties();
     // do something with tags and do this else if
     if (getTaggedBountyEvents(relayUrl, tag) && tag !== "All") {
       localGetTaggedBounties();
@@ -87,24 +120,28 @@ export default function Bounties() {
       {loading.all && tag === "All"
         ? Array.from(Array(5)).map((i) => <BountyPlaceholder key={i} />)
         : bountyType === BountyTab.all &&
-        tag === "All" &&
-        bountyEvents[relayUrl] &&
-        (bountyEvents[relayUrl].length ? (
-          filterBounties(search, bountyEvents[relayUrl]).map((event) => <Bounty key={event.id} event={event} />)
-        ) : (
-          <NoBounties />
-        ))}
+          tag === "All" &&
+          bountyEvents[relayUrl] &&
+          (bountyEvents[relayUrl].length ? (
+            filterBounties(search, filterReportedBounties(bountyEvents[relayUrl], reportedBountyEvents[relayUrl])).map((event) => (
+              <Bounty key={event.id} event={event} />
+            ))
+          ) : (
+            <NoBounties />
+          ))}
       {loading.all && tag !== "All"
         ? Array.from(Array(5)).map((i) => <BountyPlaceholder key={i} />)
         : bountyType === BountyTab.all &&
-        tag !== "All" &&
-        taggedBountyEvents[relayUrl] &&
-        taggedBountyEvents[relayUrl][tag] &&
-        (taggedBountyEvents[relayUrl][tag].length ? (
-          filterBounties(search, taggedBountyEvents[relayUrl][tag]).map((event) => <Bounty key={event.id} event={event} />)
-        ) : (
-          <NoBounties />
-        ))}
+          tag !== "All" &&
+          taggedBountyEvents[relayUrl] &&
+          taggedBountyEvents[relayUrl][tag] &&
+          (taggedBountyEvents[relayUrl][tag].length ? (
+            filterBounties(search, filterReportedBounties(taggedBountyEvents[relayUrl][tag], reportedBountyEvents[relayUrl])).map(
+              (event) => <Bounty key={event.id} event={event} />
+            )
+          ) : (
+            <NoBounties />
+          ))}
       <LoadBountiesButton action={localGetTaggedBounties} />
     </>
   );
