@@ -202,23 +202,10 @@ export default function LoginPage() {
                 <div className="flex flex-col items-start justify-center gap-4">
                   <h3 className="font-bold dark:text-white">I have a nostr account</h3>
                   <p className="opacity-90 dark:text-white">
-                    For premium security, we recommend you login with your{" "}
-                    <a
-                      href="https://chromewebstore.google.com/detail/alby-bitcoin-wallet-for-l/iokeahhehimjnekafflcihljlcjccdbe"
-                      target="_blank"
-                      className="text-indigo-600"
-                    >
-                      Alby
-                    </a>{" "}
-                    or{" "}
-                    <a
-                      href="https://chromewebstore.google.com/detail/nos2x/kpgefcfmnafjgpblomihpgmejjdanjjp"
-                      target="_blank"
-                      className="text-indigo-600"
-                    >
-                      Nos02x
-                    </a>{" "}
-                    extension
+                    For premium security, we recommend you login with your 
+                    {" "}
+                    <a href="https://chromewebstore.google.com/detail/alby-bitcoin-wallet-for-l/iokeahhehimjnekafflcihljlcjccdbe" target="_blank" className="text-indigo-600">Alby</a> or {" "}
+                    <a href="https://chromewebstore.google.com/detail/nos2x/kpgefcfmnafjgpblomihpgmejjdanjjp" target="_blank" className="text-indigo-600">Nos02x</a> extension
                   </p>
                   <div className="flex w-full flex-col gap-2">
                     <button

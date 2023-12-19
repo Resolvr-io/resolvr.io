@@ -6,7 +6,6 @@ import { cookies } from "next/headers";
 import { GeistMono, GeistSans } from "geist/font";
 
 import Refresh from "./components/Refresh";
-import Sidebar from "./components/Sidebar";
 import Header from "./components/header/Header";
 import RelayMenu from "./components/menus/RelayMenu";
 import "./globals.css";
@@ -29,7 +28,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <ClientCookiesProvider value={cookies().getAll()}>
         <body className={`${avenir.className} h-full bg-gray-100 dark:bg-background`}>
           <div className="min-h-screen">
-            <Sidebar />
             <Header />
             <Refresh />
             <RelayMenu />

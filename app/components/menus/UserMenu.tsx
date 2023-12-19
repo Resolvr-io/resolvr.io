@@ -103,23 +103,24 @@ export default function Example({ children }: any) {
               </span>
               {[
                 {
-                  href: `/u/${nip19.npubEncode(userPublicKey)}`,
-                  label: "Profile",
+                  href: `/`,
+                  label: "Home",
+                  className: "block md:hidden"
                 },
                 {
-                  href: "/messages",
-                  label: "Messages",
+                  href: `/u/${nip19.npubEncode(userPublicKey)}`,
+                  label: "Profile",
                 },
                 {
                   href: "/settings",
                   label: "Settings",
                 },
-              ].map(({ href, label }, idx) => (
+              ].map(({ href, label, className }, idx) => (
                 <Popover.Button
                   key={idx}
                   as={Link}
                   href={href}
-                  className="block select-none px-4 py-1 hover:bg-indigo-200 dark:hover:bg-indigo-600"
+                  className={`block select-none px-4 py-1 hover:bg-indigo-200 dark:hover:bg-indigo-600 ${className || ''}`}
                 >
                   {label}
                 </Popover.Button>
