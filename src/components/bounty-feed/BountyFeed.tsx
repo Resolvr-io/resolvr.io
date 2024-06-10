@@ -1,12 +1,12 @@
 "use client";
 
+import { useRelayStore } from "~/store/relay-store";
 import { type Event, type Filter } from "nostr-tools";
 import { useSubscribe } from "react-nostr";
 import { toast } from "sonner";
 
 import BountyCard from "./BountyCard";
 import BountyLoadButton from "./BountyLoadButton";
-import { useRelayStore } from "~/store/relay-store";
 
 type Props = {
   initialBounties?: Event[];
@@ -14,6 +14,7 @@ type Props = {
   eventKey: string;
   tag?: string;
   showProfileInfo?: boolean;
+  bitcoinPrice?: number | null;
 };
 
 export default function BountiesFeed({
@@ -22,6 +23,7 @@ export default function BountiesFeed({
   eventKey,
   tag,
   showProfileInfo,
+  bitcoinPrice,
 }: Props) {
   const onEventsNotFound = () => {
     toast("No bounties found", {
@@ -55,7 +57,12 @@ export default function BountiesFeed({
       <ul className="flex w-full flex-col">
         {(events.length > 0 ? events : initialBounties ?? []).map(
           (bountyEvent) => (
-            <BountyCard key={bountyEvent.id} bountyEvent={bountyEvent} showProfileInfo={showProfileInfo} />
+            <BountyCard
+              key={bountyEvent.id}
+              bountyEvent={bountyEvent}
+              showProfileInfo={showProfileInfo}
+              bitcoinPrice={bitcoinPrice}
+            />
           ),
         )}
       </ul>

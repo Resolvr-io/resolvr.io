@@ -20,4 +20,33 @@ const validateGithub = async (npub: string, github: string, gist: string) => {
   }
 };
 
-export { revalidateCachedTag, validateGithub };
+const getBitcoinPrice = async () => {
+  try {
+    const response = await fetch(
+      "https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?id=1",
+      {
+        headers: {
+          "X-CMC_PRO_API_KEY": `${process.env.CMC_API_KEY}`,
+        },
+      },
+    );
+
+    const json = (await response.json()) as {
+      data: {
+        "1": {
+          quote: {
+            USD: {
+              price: number;
+            };
+          };
+        };
+      };
+    };
+
+    return json.data["1"].quote.USD.price;
+  } catch (_) {
+    return _;
+  }
+};
+
+export { revalidateCachedTag, validateGithub, getBitcoinPrice };

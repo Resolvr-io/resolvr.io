@@ -2,11 +2,14 @@ import { ThemeProvider } from "~/context/ThemeProvider";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 
 import "~/styles/globals.css";
 
-import AuthProvider from "~/context/AuthProvider";
 import { Toaster } from "~/components/ui/sonner";
+import AuthProvider from "~/context/AuthProvider";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Fundsolvr",
@@ -19,11 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html className={inter.className} lang="en" suppressHydrationWarning>
       <body className="flex h-full w-full">
         <ThemeProvider
           attribute="class"

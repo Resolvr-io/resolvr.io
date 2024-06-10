@@ -92,7 +92,7 @@ function ZapPollTab({ selectedTab }: ApplicationTabProps) {
     >
       <ZapIcon
         className={cn(
-          selectedTab === "applications"
+          selectedTab === "poll"
             ? "text-indigo-600 dark:text-indigo-500"
             : "text-muted-foreground group-hover:text-foreground",
           "-ml-0.5 mr-2 h-5 w-5",

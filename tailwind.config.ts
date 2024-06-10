@@ -11,6 +11,15 @@ module.exports = {
       },
     },
     extend: {
+      fontSize: {
+        md: [
+          "0.9375rem",
+          {
+            lineHeight: "24px",
+            letterSpacing: "-0.45px",
+          },
+        ],
+      },
       fontFamily: {
         sans: ["var(--font-geist-sans)"],
         mono: ["var(--font-geist-mono)"],
@@ -22,13 +31,21 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        bitcoin: {
+          DEFAULT: "hsl(var(--bitcoin))",
+          background: "hsla(var(--bitcoin-background))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
+          "foreground-hover": "hsl(var(--primary-foreground-hover))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+          hover: "hsl(var(--secondary-hover))",
+          "foreground-hover": "hsl(var(--secondary-foreground-hover))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

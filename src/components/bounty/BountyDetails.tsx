@@ -28,7 +28,7 @@ export default function BountyDetails({ bounty }: Props) {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <div className="min-h-[12rem] w-full rounded-md border border-input bg-secondary/20">
+      <div className="min-h-[12rem] w-full rounded-md border border-input bg-muted/20">
         <article className="prose prose-sm w-full p-4 dark:prose-invert">
           <Markdown>{bounty.content}</Markdown>
         </article>

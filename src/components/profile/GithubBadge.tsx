@@ -63,7 +63,7 @@ export default function GithubBadge({ pubkey }: Props) {
             {profileContent(profileEvent).github}
           </span>
         </Badge>
-        <CheckCircle className="absolute right-0 top-0 block h-2.5 w-2.5 rounded-full bg-secondary/100 text-green-400 ring-2 ring-secondary/0" />
+        <CheckCircle className="absolute right-0 top-0 block h-2.5 w-2.5 rounded-full bg-muted/100 text-green-400 ring-2 ring-secondary/0" />
       </Link>
     );
   }

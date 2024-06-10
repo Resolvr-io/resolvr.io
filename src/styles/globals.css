@@ -10,10 +10,14 @@
     --card-foreground: 224 72% 5% /* gray-950 */;
     --popover: 0 0% 100% /* white */;
     --popover-foreground: 224 72% 5% /* gray-950 */;
-    --primary: 244 76% 59% /* indigo-600 */;
-    --primary-foreground: 226 100% 97% /* indigo-50 */;
-    --secondary: 220 15% 96% /* gray-100 */;
-    --secondary-foreground: 221 40% 11% /* gray-900 */;
+    --primary: 244 76% 59% /* #5247E6 */;
+    --primary-foreground: 228 100% 97% /* #F0F3FF */;
+    --primary-hover: 244 66% 48% /* 352ACD */;
+    --primary-foreground-hover: 0 0% 100% /* #FFFFFF */;
+    --secondary: 227 69% 5% /* #040816 */;
+    --secondary-foreground: 240 20% 99% /* #FCFCFD */;
+    --secondary-hover: 215 28% 17% /* #1F2937 */;
+    --secondary-foreground-hover: 240 20% 99% /* #FCFCFD */;
     --muted: 220 15% 96% /* gray-100 */;
     --muted-foreground: 220 9% 47% /* gray-500 */;
     --accent: 220 15% 96% /* gray-100 */;
@@ -25,7 +29,8 @@
     --outline: 220 14% 91% /* gray-200 */;
     --ring: 244 76% 59% /* indigo-600 */;
     --radius: 0.5rem;
-
+    --bitcoin: 27 96% 61% /* #FB923C */;
+    --bitcoin-background: 27.47, 95.4%, 82.94%, 0.15;
     --nc-background: #ffffff;
     --nc-container-font-family: arial;
     --nc-container-font-size: 1.2em;
@@ -47,26 +52,32 @@
   }
 
   .dark {
-    --background: 224 72% 5% /* gray-950 */;
+    --background: 227 69% 5% /* #040816 */;
     --foreground: 210 20% 99% /* gray-50 */;
     --card: 224 72% 5% /* gray-950 */;
     --card-foreground: 210 20% 99% /* gray-50 */;
     --popover: 224 72% 5% /* gray-950 */;
     --popover-foreground: 210 20% 99% /* gray-50 */;
-    --primary: 244 76% 59% /* indigo-600 */;
-    --primary-foreground: 226 100% 97% /* indigo-50 */;
-    --secondary: 215 28% 17% /* gray-800 */;
-    --secondary-foreground: 210 20% 99% /* gray-50 */;
-    --muted: 215 28% 17% /* gray-800 */;
+    --primary: 244 76% 59% /* #5247E6 */;
+    --primary-foreground: 228 100% 97% /* #F0F3FF */;
+    --primary-hover: 244 66% 48% /* 352ACD */;
+    --primary-foreground-hover: 0 0% 100% /* #FFFFFF */;
+    --secondary: 227 69% 5% /* #040816 */;
+    --secondary-foreground: 240 20% 99% /* #FCFCFD */;
+    --secondary-hover: 215 28% 17% /* #1F2937 */;
+    --secondary-foreground-hover: 240 20% 99% /* #FCFCFD */;
+    --muted: 214 40% 11% /* #111B28 */;
     --muted-foreground: 218 11% 65% /* gray-400 */;
     --accent: 215 28% 17% /* gray-800 */;
     --accent-foreground: 210 20% 99% /* gray-50 */;
     --destructive: 0 63% 31% /* red-900 */;
     --destructive-foreground: 210 20% 99% /* gray-50 */;
-    --border: 215 28% 17% /* gray-800 */;
+    --border: 215 28% 17% /* #1F2937 */;
     --outline: 216.9 19.1% 26.7% /* gray-700 */;
     --input: 215 28% 17% /* gray-800 */;
     --ring: 244 76% 59% /* indigo-600 */;
+    --bitcoin: 27 96% 61% /* #FB923C */;
+    --bitcoin-background: 27.47, 95.4%, 82.94%, 0.15;
 
     --nc-background: #040816;
     --nc-container-font-family: arial;
@@ -83,7 +94,7 @@
     --nc-textarea-font-family: inherit;
     --nc-textarea-font-size: inherit;
     --nc-text-background: #111827;
-    --nc-hover-background: #333c4c; 
+    --nc-hover-background: #333c4c;
     --nc-text-color: #d1d5db;
     --nc-text-color-dark: #9ca3af;
     --nc-primary-color: #374151;
@@ -91,6 +102,10 @@
   }
 }
 @layer base {
+  html {
+    margin-left: calc(100vw - 100%);
+    margin-right: 0;
+  }
   * {
     @apply border-border;
   }

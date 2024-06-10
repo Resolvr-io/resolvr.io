@@ -19,6 +19,7 @@ import {
   type ATagParams,
 } from "react-nostr";
 import { toast } from "sonner";
+
 import { ViewRawDialog } from "../misc/ViewRawDialog";
 
 type Props = {
@@ -87,7 +88,7 @@ export default function ApplicantMenu({ applicantEvent, bountyEvent }: Props) {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <div className="flex h-9 w-9 items-center justify-center whitespace-nowrap rounded-md border border-input bg-background text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:bg-secondary/70 dark:hover:bg-secondary/60">
+          <div className="flex h-9 w-9 items-center justify-center whitespace-nowrap rounded-md border border-input bg-background text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:bg-muted/70 dark:hover:bg-muted/60">
             <MoreVertical className="h-4 w-4" />
           </div>
         </DropdownMenuTrigger>

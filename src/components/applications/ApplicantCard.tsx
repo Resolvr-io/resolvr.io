@@ -2,11 +2,7 @@ import useAuth from "~/hooks/useAuth";
 import { fromNow } from "~/lib/utils";
 import { useRelayStore } from "~/store/relay-store";
 import { type Event } from "nostr-tools";
-import {
-  tag,
-  useBatchedEvents,
-  useBatchedProfiles,
-} from "react-nostr";
+import { tag, useBatchedEvents, useBatchedProfiles } from "react-nostr";
 
 import Profile from "../bounty/Profile";
 import GithubBadge from "../profile/GithubBadge";
@@ -39,7 +35,7 @@ export default function ApplicationCard({
   );
 
   return (
-    <li className="flex items-center gap-x-4 rounded-md border bg-secondary/50 p-4">
+    <li className="flex items-center gap-x-4 rounded-md border bg-muted/50 p-4">
       <div className="flex w-full flex-col gap-y-1">
         <span className="flex w-full justify-between pb-1">
           <span className="flex items-center gap-x-2 text-sm font-light text-muted-foreground">

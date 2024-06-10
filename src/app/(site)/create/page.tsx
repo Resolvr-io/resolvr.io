@@ -213,13 +213,13 @@ export default function CreateBounty() {
                     <div className="mr-1 flex items-center">
                       <TabsList className="bg-background">
                         <TabsTrigger
-                          className="data-[state=active]:bg-secondary"
+                          className="data-[state=active]:bg-muted"
                           value="write"
                         >
                           Write
                         </TabsTrigger>
                         <TabsTrigger
-                          className="data-[state=active]:bg-secondary"
+                          className="data-[state=active]:bg-muted"
                           value="preview"
                         >
                           Preview
@@ -256,7 +256,7 @@ export default function CreateBounty() {
                     </FormControl>
                   </TabsContent>
                   <TabsContent value="preview">
-                    <div className="max-h-[28rem] min-h-[12rem] w-full overflow-y-auto rounded-md border border-input bg-secondary/20">
+                    <div className="max-h-[28rem] min-h-[12rem] w-full overflow-y-auto rounded-md border border-input bg-muted/90">
                       <article className="prose prose-sm w-full px-3 py-2 dark:prose-invert">
                         <Markdown>{form.getValues().description}</Markdown>
                       </article>
@@ -282,8 +282,7 @@ export default function CreateBounty() {
                         role="combobox"
                         className={cn(
                           "justify-between",
-                          !field.value &&
-                            "bg-secondary/20 text-muted-foreground",
+                          !field.value && "bg-muted/90 text-muted-foreground",
                         )}
                       >
                         {field.value
@@ -344,7 +343,7 @@ export default function CreateBounty() {
             control={form.control}
             name="shouldNotify"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border bg-secondary/20 p-4">
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border bg-muted/90 p-4">
                 <FormControl>
                   <Checkbox
                     checked={field.value}
